@@ -7,3 +7,4 @@
 * Ansible
 * Azure CLI
 * GCE
+* Digital Ocean
