@@ -5,3 +5,5 @@
 * Terraform
 * AWS CLI
 * Ansible
+* Azure CLI
+* GCE
