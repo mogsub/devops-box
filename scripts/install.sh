@@ -34,6 +34,24 @@ fi
 pip install -U awscli
 pip install -U awsebcli
 
+# install Azure CLI
+AZ_REPO=$(lsb_release -cs)
+echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | \
+    sudo tee /etc/apt/sources.list.d/azure-cli.list
+curl -L https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+sudo apt-get install apt-transport-https
+sudo apt-get update && sudo apt-get install azure-cli
+
+# install GCE
+export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
+echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+sudo apt-get update && sudo apt-get install google-cloud-sdk
+
+#install Digital Ocean CLI
+curl -sL https://github.com/digitalocean/doctl/releases/download/v1.8.0/doctl-1.8.0-linux-amd64.tar.gz | tar -xzv
+sudo mv ~/doctl /usr/local/bin
+
 #terraform
 T_VERSION=$(/usr/local/bin/terraform -v | head -1 | cut -d ' ' -f 2 | tail -c +2)
 T_RETVAL=${PIPESTATUS[0]}
